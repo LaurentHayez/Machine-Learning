@@ -1,0 +1,13 @@
+% Machine Learning Homework 2 %
+
+@RELATION scotts-predict
+
+@ATTRIBUTE shortbread {YES, NO}
+@ATTRIBUTE lager {YES, NO}
+@ATTRIBUTE whiskey {YES, NO}
+@ATTRIBUTE porridge {YES, NO}
+@ATTRIBUTE soccer {YES, NO}
+@ATTRIBUTE scottish {YES, NO}
+
+@DATA
+YES,	NO,		YES,	YES,	NO,	?

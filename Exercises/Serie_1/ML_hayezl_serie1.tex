@@ -1,0 +1,256 @@
+\documentclass[fontsize=12pt, usenames, dvipsnames, headinclude, headsepline, footinclude, footsepline]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx, wrapfig}
+\usepackage{lmodern}
+\usepackage{color, colortbl}
+\usepackage{xcolor}
+\usepackage{amsmath, amssymb, mathrsfs, amsthm, thmtools, MnSymbol}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{pgf, pgfplots, tikz, pst-solides3d}
+\usetikzlibrary{cd} %To draw commutative diagrams
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{lindenmayersystems, arrows.meta}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{automata}
+\usepackage{scrlayer-scrpage}  % header and footer for KOMA-Script
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{listings}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[english]{babel}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\bw}{\bigwedge}
+\newcommand{\Fa}{\F(A)} 
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\emph}{\textbf}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\ov}[1]{\overline{#1}}
+
+\DeclareMathOperator{\rk}{rk}
+
+\synctex=1
+
+%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°%
+%----Définition de l'environnement listings----%
+%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°%
+\lstset{language=Matlab,%
+    basicstyle=\scriptsize,
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{Fuschia},
+    commentstyle=\color{ForestGreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break, if},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+\renewcommand{\lstlistingname}{Code}
+
+
+%%%%%%%%	Définitions des environnements de théorèmes	%%%%%%%%
+%----- ENVIRONNEMENT POUR LES EXERCICES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont\itshape
+]{defstyle}
+
+\declaretheorem[style=defstyle, title=Exercise]{exo}
+%________________________________________________________
+
+
+
+%----- ENVIRONNEMENT POUR LES PREUVES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont, 
+    mdframed={
+      leftmargin=15,
+      rightmargin=15,
+      hidealllines=true,
+      font=\small
+   }
+]{preuvestyle}
+
+\declaretheorem[style=preuvestyle, numbered = no, title=Solution, qed=\qedsymbol]{sol}
+
+%________________________________________________________
+
+
+\addtokomafont{disposition}{\normalfont\bfseries}
+
+\title{\normalfont{\bfseries{Machine Learning: Homework 1}}}
+\author{Laurent \textsc{Hayez}}
+\date{\today}
+
+\clearpairofpagestyles                 % deletes header/footer
+\pagestyle{scrheadings}           % use following definitions for header/footer
+% definitions/configuration for the header
+\rohead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}
+\rehead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}        % equal page, right position (inner) 
+\lohead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}}        % odd   page, left  position (inner) 
+\lehead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}} % equal page, left (outer) position
+% definitions/configuration for the footer
+\lefoot[Machine Learning: Homework 1]{Machine Learning: Homework 1}
+\lofoot[Machine Learning: Homework 1]{Machine Learning: Homework 1}
+\refoot[page \pagemark]{page \pagemark}
+\rofoot[page \pagemark]{page \pagemark}
+
+% for compatibility stuff
+\pgfplotsset{compat=1.12}
+
+
+\begin{document}
+
+
+\renewcommand{\labelitemi}{\textbullet}
+
+
+
+\maketitle
+
+
+
+
+\begin{exo}
+  Solve the problem (by hand) using the simple rule (1R) approach.
+\end{exo}
+
+  \begin{sol}
+    \begin{enumerate}
+    \item With the attribute \texttt{choice}, if \texttt{choice = T} we wait 4 times over seven, hence we
+      derive the rule \texttt{if choice = T, then wait = T} with $3/7$ errors. If \texttt{choice = F}, then we
+      don't wait 3 times over 5, hence we derive the rule \texttt{if choice = F, then wait = F}, with $2/5$
+      errors. In total, we have $5/12$ errors with these rules.
+
+    \item In the case of the attribute \texttt{bar}, when \texttt{bar = T}, then we wait 3 times, and 3 other
+      times we don't wait. The same happens when \texttt{bar = F}. Hence we choose randomly \texttt{if bar =
+      T, then wait = T} and \texttt{if bar = F, then wait = T} (in every case we wait). For both cases, we
+      have $3/6$ errors, totaling $6/12$ errors.
+    
+    \item With the same reasoning as above, we derive the rules \texttt{if day = T, then wait = F} and
+      \texttt{if day = F, then wait = T} having $2/5$ and $3/7$ errors respectively, hence a total of $5/12$
+      errors.
+
+    \item With the same reasoning as above, we derive the rules \texttt{if hungry = T, then wait = T} and
+      \texttt{if hungry = F, then wait = F} having $2/7$ and $1/5$ errors respectively, hence a total of $3/12$
+      errors.
+
+    \item With the same reasoning as above, we derive the rules \texttt{if patron = some, then wait = T},
+      \texttt{if patron = full, then wait = F} and \texttt{if patron = none, then wait = F} having $0/4$,
+      $2/6$ and $0/2$ errors respectively, hence a total of $2/12$ errors.
+
+    \item With the same reasoning as above, we derive the rules \texttt{if price = \$, then wait = F},
+      \texttt{if price = \$\$, then wait = T} and \texttt{if price = \$\$\$, then wait = F} having $3/7$,
+      $0/2$ and $1/3$ errors respectively, hence a total of $4/12$ errors.
+
+    \item With the same reasoning as above, we derive the rules \texttt{if rain = T, then wait = T} (random choice) and
+      \texttt{if rain = F, then wait = F} (random choice) having $2/4$ and $4/8$ errors respectively, hence a total of $6/12$
+      errors.
+
+    \item With the same reasoning as above, we derive the rules \texttt{if booking = T, then wait = T} (random choice) and
+      \texttt{if booking = F, then wait = F} (random choice) having $2/4$ and $4/8$ errors respectively, hence a total of $6/12$
+      errors.
+
+    \item With the same reasoning as above, we derive the rules \texttt{if type = french, then wait = T}
+      (random choice), \texttt{if type = Thai, then wait = T} (random choice), \texttt{if type = swiss, then
+        wait = T} (random choice) and \texttt{if type = italian, then wait = F} having $1/2$, $2/4$, $2/4$ and $1/2$
+      errors respectively, hence a total of $6/12$ errors.
+
+    \item With the same reasoning as above, we derive the rules \texttt{if time = 0, then wait = T},
+      \texttt{if time = 20, then wait = F}, \texttt{if time = 40, then wait = T} (random choice) and \texttt{if time = 60, then wait = F} having $1/5$,
+      $1/3$, $1/2$ and $0/2$ errors respectively, hence a total of $3/12$ errors.
+    \end{enumerate}
+    We can make a table to summarize what we have found so far (see Table 1). We see that the attribute
+    minimizing the number of errors is \texttt{patron}, hence the one rule is: 
+    \[ \mathtt{\text{if patron = none | full, then wait = false, else wait = true}}. \]
+\end{sol}
+
+    % Please add the following required packages to your document preamble:
+\begin{table}[h]
+\centering
+\caption{Summary of the rules}
+\begin{tabular}{@{}rlcc@{}}
+\toprule
+\multicolumn{1}{c}{Attributes}              & \multicolumn{1}{c}{Rules}                           & \multicolumn{1}{c}{Errors} & \multicolumn{1}{c}{Total errors}            \\ \midrule
+\multicolumn{1}{r}{\multirow{2}{*}{Choice}} & \multicolumn{1}{l}{True $\to$ True}                 & \multicolumn{1}{c}{3 / 7}  & \multicolumn{1}{c}{\multirow{2}{*}{5 / 12}} \\
+\multicolumn{1}{r}{}                        & \multicolumn{1}{l}{False $\to$ False}               & \multicolumn{1}{c}{2 / 5}  & \multicolumn{1}{c}{}                        \\ \midrule
+\multicolumn{1}{r}{\multirow{2}{*}{Bar}}    & \multicolumn{1}{l}{True $\to$ True (random choice)} & \multicolumn{1}{c}{3 / 6}  & \multicolumn{1}{c}{\multirow{2}{*}{6 / 12}} \\
+\multicolumn{1}{r}{}                        & False $\to$ True (random choice)                    & 3 / 6                      & \multicolumn{1}{c}{}                        \\ \midrule
+\multirow{2}{*}{Day}                        & True $\to$ False                                    & 2 / 5                      & \multirow{2}{*}{5 / 12}                     \\
+                                            & False $\to$ True                                    & 3 / 7                      &                                             \\ \midrule
+\multirow{2}{*}{Hungry}                     & True $\to$ True                                     & 2 / 7                      & \multirow{2}{*}{3 / 12}                     \\
+                                            & False $\to$ False                                   & 1 / 5                      &                                             \\ \midrule
+\multirow{3}{*}{Patron}                     & None $\to$ False                                    & 0 / 2                      & \multirow{3}{*}{2 / 12}                     \\
+                                            & Some $\to$ True                                     & 0 / 4                      &                                             \\
+                                            & Full $\to$ False                                    & 2 / 6                      &                                             \\ \midrule
+\multirow{3}{*}{Price}                      & \$ $\to$ False                                      & 3 / 7                      & \multirow{3}{*}{4 / 12}                     \\
+                                            & \$\$ $\to$ True                                     & 0 / 2                      &                                             \\
+                                            & \$\$\$ $\to$ False                                  & 1 / 3                      &                                             \\ \midrule
+\multirow{2}{*}{Rain}                       & True $\to$ True (random choice)                     & 2 / 4                      & \multirow{2}{*}{6 / 12}                     \\
+                                            & False $\to$ False (random choice)                   & 4 / 8                      &                                             \\ \midrule
+\multirow{2}{*}{Booking}                    & True $\to$ True (random choice)                     & 2 / 4                      & \multirow{2}{*}{6 / 12}                     \\
+                                            & False $\to$ False (random choice)                   & 4 / 8                      &                                             \\ \midrule
+\multirow{4}{*}{Type}                       & French $\to$ True (random choice)                   & 1 / 2                      & \multirow{4}{*}{6 / 12}                     \\
+                                            & Thai $\to$ True (random choice)                     & 2 / 4                      &                                             \\
+                                            & Swiss $\to$ True (random choice)                    & 2 / 4                      &                                             \\
+                                            & Italian $\to$ False (random choice)                 & 1 / 2                      &                                             \\ \midrule
+\multirow{4}{*}{Time}                       & $0 \to$ True                                        & 1 / 5                      & \multirow{4}{*}{3 / 12}                     \\
+                                            & $20 \to$ False                                      & 1 / 3                      &                                             \\
+                                            & $40 \to$ True (random choice)                       & 1 / 2                      &                                             \\
+                                            & $60 \to$ False                                      & 0 / 2                      &                                             \\ \bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{exo}
+According to your rule: How would hungry Bob decide on a rainy Monday if there is neither a
+bar nor an alternative restaurant nearby but some customers are in this expensive Swiss
+restaurant where he doesn’t have to wait for a table because he did make a reservation?
+\end{exo}
+
+  \begin{sol}
+    According to the rule
+    \[ \mathtt{\text{if patron = none | full, then wait = false, else wait = true}},\]
+    Bob would wait for a table.
+  \end{sol}
+
+
+
+
+
+	
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t 
+%%% End:

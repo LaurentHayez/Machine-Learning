@@ -1,0 +1,13 @@
+S01	No	No	Yes	Yes	Yes	No
+S02	Yes	No	Yes	Yes	Yes	No
+S03	Yes	Yes	No	No	Yes	No
+S04	Yes	Yes	No	No	No	No
+S05	No	Yes	No	No	Yes	No
+S06	No	No	No	Yes	No	No
+S07	Yes	No	Yes	Yes	Yes	Yes
+S08	No	Yes	No	No	Yes	Yes
+S09	Yes	Yes	Yes	Yes	No	Yes
+S10	Yes	Yes	No	Yes	No	Yes
+S11	Yes	Yes	No	Yes	Yes	Yes
+S12	Yes	No	Yes	Yes	No	Yes
+S13	Yes	No	Yes	No	No	Yes

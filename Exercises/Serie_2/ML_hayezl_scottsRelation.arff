@@ -1,0 +1,25 @@
+% Machine Learning Homework 2 %
+
+@RELATION scotts
+
+@ATTRIBUTE shortbread {YES, NO}
+@ATTRIBUTE lager {YES, NO}
+@ATTRIBUTE whiskey {YES, NO}
+@ATTRIBUTE porridge {YES, NO}
+@ATTRIBUTE soccer {YES, NO}
+@ATTRIBUTE scottish {YES, NO}
+
+@DATA
+NO,		NO,		YES,	YES,	YES,	NO
+YES,	NO,		YES,	YES,	YES,	NO
+YES,	YES,	NO,		NO,		YES,	NO
+YES,	YES,	NO,		NO,		NO,		NO
+NO,		YES,	NO,		NO,		YES,	NO
+NO,		NO,		NO,		YES,	NO,		NO
+YES,	NO,		YES,	YES,	YES,	YES
+NO,		YES,	NO,		NO,		YES,	YES
+YES,	YES,	YES,	YES,	NO,		YES
+YES,	YES,	NO,		YES,	NO,		YES
+YES,	YES,	NO,		YES,	YES,	YES
+YES,	NO,		YES,	YES,	NO,		YES
+YES,	NO,		YES,	NO,		NO,		YES

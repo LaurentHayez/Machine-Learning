@@ -1,0 +1,15 @@
+S01	Sport	Town	High	Good	Red	T
+S02	Sport	Country	Medium	Medium	White	T
+S03	Sport	Suburb	High	Bad	Blue	T
+S04	Compact	Suburb	Low	Good	Green	F
+S05	SUV	Country	Medium	Bad	White	F
+S06	Compact	Country	Low	Medium	Blue	F
+S07	SUV	Town	Low	Bad	Red	T
+S08	Compact	Country	Medium	Bad	Green	F
+S09	Compact	Town	High	Medium	Red	T
+S10	Sport	Country	High	Good	White	T
+S11	SUV	Town	Medium	Good	Green	F
+S12	SUV	Suburb	Low	Bad	White	F
+S13	Compact	Suburb	Low	Good	Green	F
+S14	Compact	Town	High	Good	Red	T
+S15	SUV	Suburb	Medium	Medium	Blue	F

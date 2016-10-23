@@ -1,0 +1,12 @@
+S01	T	F	F	T	Some	$$$	F	T	French	0	T
+S02	T	F	F	T	Full	$	F	F	Thai	40	F
+S03	T	T	F	F	Some	$	F	F	Swiss	0	T
+S04	T	F	T	T	Full	$	F	F	Thai	20	T
+S05	T	F	T	F	Full	$$$	F	T	French	60	F
+S06	F	T	F	T	Some	$$	T	F	Italian	0	T
+S07	F	T	F	F	None	$	T	F	Swiss	20	F
+S08	F	F	F	T	Some	$$	T	T	Thai	0	T
+S09	F	T	T	F	Full	$	T	F	Swiss	60	F
+S10	T	T	T	T	Full	$$$	F	T	Italian	20	F
+S11	F	F	F	F	None	$	F	F	Thai	0	F
+S12	T	T	T	T	Full	$	F	F	Swiss	40	T

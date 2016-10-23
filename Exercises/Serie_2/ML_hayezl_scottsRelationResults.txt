@@ -1,0 +1,79 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayes 
+Relation:     scotts
+Instances:    13
+Attributes:   6
+              shortbread
+              lager
+              whiskey
+              porridge
+              soccer
+              scottish
+Test mode:    evaluate on training data
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                Class
+Attribute         YES     NO
+               (0.53) (0.47)
+=============================
+shortbread
+  YES              7.0    4.0
+  NO               2.0    4.0
+  [total]          9.0    8.0
+
+lager
+  YES              5.0    4.0
+  NO               4.0    4.0
+  [total]          9.0    8.0
+
+whiskey
+  YES              5.0    3.0
+  NO               4.0    5.0
+  [total]          9.0    8.0
+
+porridge
+  YES              6.0    4.0
+  NO               3.0    4.0
+  [total]          9.0    8.0
+
+soccer
+  YES              4.0    5.0
+  NO               5.0    3.0
+  [total]          9.0    8.0
+
+
+
+Time taken to build model: 0 seconds
+
+=== Evaluation on training set ===
+
+Time taken to test model on training data: 0 seconds
+
+=== Summary ===
+
+Correctly Classified Instances          10               76.9231 %
+Incorrectly Classified Instances         3               23.0769 %
+Kappa statistic                          0.5301
+Mean absolute error                      0.3906
+Root mean squared error                  0.4386
+Relative absolute error                 78.5254 %
+Root relative squared error             87.9701 %
+Total Number of Instances               13     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.857    0.333    0.750      0.857    0.800      0.537    0.810     0.875     YES
+                 0.667    0.143    0.800      0.667    0.727      0.537    0.810     0.697     NO
+Weighted Avg.    0.769    0.245    0.773      0.769    0.766      0.537    0.810     0.793     
+
+=== Confusion Matrix ===
+
+ a b   <-- classified as
+ 6 1 | a = YES
+ 2 4 | b = NO
+
