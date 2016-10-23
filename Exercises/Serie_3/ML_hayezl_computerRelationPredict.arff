@@ -1,0 +1,12 @@
+% Machine Learning Homework 3 %
+
+@RELATION computer-predict
+
+@ATTRIBUTE age {Youth, Middle-aged, Senior}
+@ATTRIBUTE income {Low, Medium, High}
+@ATTRIBUTE student {Yes, No}
+@ATTRIBUTE creditRating {Good, Excellent}
+@ATTRIBUTE buyComputer {Yes, No}
+
+@DATA
+Senior,	High,	Yes,	Good,	?

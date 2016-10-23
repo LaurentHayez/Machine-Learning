@@ -1,0 +1,26 @@
+% Machine Learning Homework 3 %
+
+@RELATION computer
+
+@ATTRIBUTE age {Youth, Middle-aged, Senior}
+@ATTRIBUTE income {Low, Medium, High}
+@ATTRIBUTE student {Yes, No}
+@ATTRIBUTE creditRating {Good, Excellent}
+@ATTRIBUTE buyComputer {Yes, No}
+
+@DATA
+
+Youth,			High,	No,		Good,		No
+Youth,			High,	No,		Excellent,	No
+Middle-aged,	High,	Yes,	Good,		Yes
+Senior,			Medium,	Yes,	Good,		Yes
+Senior,			Low,	Yes,	Good,		Yes
+Senior,			Low,	Yes,	Excellent,	No
+Middle-aged,	Low,	Yes,	Excellent,	Yes
+Youth,			Medium,	No,		Good,		No
+Youth,			Low,	Yes,	Good,		Yes
+Senior,			Medium,	Yes,	Good,		Yes
+Youth,			High ,	Yes,	Excellent,	Yes
+Middle-aged,	Medium,	No,		Excellent,	Yes
+Senior,			Medium,	No,		Excellent,	No
+Middle-aged,	High,	Yes,	Good,		Yes

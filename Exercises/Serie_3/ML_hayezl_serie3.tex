@@ -9,13 +9,6 @@
 \usepackage{amsmath, amssymb, mathrsfs, amsthm, thmtools, MnSymbol}
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage{pgf, pgfplots, tikz, pst-solides3d}
-\usetikzlibrary{cd} %To draw commutative diagrams
-\usetikzlibrary{calc}
-\usetikzlibrary{arrows}
-\usetikzlibrary{shapes}
-\usetikzlibrary{lindenmayersystems, arrows.meta}
-\usetikzlibrary{decorations.pathreplacing}
-\usetikzlibrary{automata}
 \usepackage{scrlayer-scrpage}  % header and footer for KOMA-Script
 \usepackage{hyperref}
 \usepackage{todonotes}
@@ -97,9 +90,6 @@
 \refoot[page \pagemark]{page \pagemark}
 \rofoot[page \pagemark]{page \pagemark}
 
-% for compatibility stuff
-\pgfplotsset{compat=1.12}
-
 
 \begin{document}
 
@@ -133,8 +123,9 @@
     and $g_2$ corresponding to the shoe size. Moreover let $L[\cdot]$ denote the likelihood of an event.
 
     If Taylor weights $73$ kgs and has shoe size 41, and Robin weights $67$ kgs and has shoe size $44$, then
-    define $E_1 = \{\text{weight = 73, shoe size = 41}\}$ and $E_2 = \{\text{weight = 67, shoe size =
-      44}\}$. We have
+    define \[E_1 = \{\text{weight = 73, shoe size = 41}\}\] and \[E_2 = \{\text{weight = 67, shoe size =
+      44}\}.\] 
+    We have
     \begin{align*}
       L[\text{Taylor = male} \mid E_1] &= f_1(73) \cdot f_2(41) \cdot \frac{1}{2} & \text{where }
                                                                                     \P[\text{male}] =
@@ -142,10 +133,114 @@
                                        &= 0.0505 \cdot 0.0118 \cdot \frac{1}{2}\\
       &= 0.00029
     \end{align*}
+    Similarly, we have 
+    \[ L[\text{Taylor = female} \mid E_1] = g_1(73) \cdot g_2(41) \cdot \frac{1}{2} = 0.000019.\]
+    Hence we can compute the probabilities, knowing that $\P[E_1] = 0.00029 + 0.000019 = 0.000318$.
+    \[ \P[\text{Taylor = male} \mid E_1] = \frac{L[\text{Taylor = male} \mid E_1]}{\P[E]} = 0.939, \]
+    \[ \P[\text{Taylor = female} \mid E_1] = \frac{L[\text{Taylor = female} \mid E_1]}{\P[E]} = 0.0607. \]
+    
+    Applying the same reasoning for Robin gives us $L[\text{Robin = male} \mid E_2] = 0.00074$ and
+    $L[\text{Robin = female} \mid E_2] = 3.112 \cdot 10^{-6}$, hence $\P[E_2] = 0.00074 + 3.112 \cdot
+    10^{-6}$. 
+    \[\P[\text{Robin = male} \mid E_2] = \frac{L[\text{Robin = male} \mid E_2]}{\P[E_2]} = 0.9958,\]
+    \[\P[\text{Robin = female} \mid E_2] = \frac{L[\text{Robin = female} \mid E_2]}{\P[E_2]} = 0.0041.\]
   \end{sol}
 
+\begin{table}[]
+\centering
+\caption{Table of values for the weights and shoe sizes for men and women}
+\label{table:1}
+\begin{tabular}{@{}l|l|l|l@{}}
+  \toprule
+  \multicolumn{2}{c|}{Weight} & \multicolumn{2}{c}{Shoe size} \\ \midrule
+  Male & Female & Male  & Female \\ \midrule
+  \begin{tabular}[c]{@{}l@{}}82, 80,\\ 77, 72\end{tabular} 
+                               & \begin{tabular}[c]{@{}l@{}}60, 64, \\ 59, 65 \end{tabular} 
+                               & \begin{tabular}[c]{@{}l@{}}45, 45, \\ 43, 43 \end{tabular} 
+                               & \begin{tabular}[c]{@{}l@{}}39, 41, \\ 40, 41\end{tabular} \\ \midrule
+  \begin{tabular}[c]{@{}l@{}}$\mu_1  = 77.75$\\ $\sigma_1 = 4.343$\end{tabular} 
+                               & \begin{tabular}[c]{@{}l@{}}$\mu_2  = 62$\\ $\sigma_2 = 2.943$\end{tabular}  
+                               & \begin{tabular}[c]{@{}l@{}}$\mu_3  = 44$\\ $\sigma_3 = 1.154$\end{tabular}
+                               & \begin{tabular}[c]{@{}l@{}}$\mu_4  = 40.25$\\ $\sigma_4 = 0.957$\end{tabular}
+  \\ \bottomrule
+\end{tabular}
+\end{table}
 
 
+
+\begin{exo}
+  Build a decision tree (by hand) based on the following data and using information theory. Then use WEKA to
+  see if you get the same decision tree (ID3). Use this tree to decide if Edward, the senior student, would
+  buy a new PC with his high income and good credit rating.
+\end{exo}
+
+  \begin{sol}
+    To build the decision tree, we look at each attribute and compute the information gain. The initial
+    information is given by $I(9/14, 5/14) = -\frac{9}{14} \log_2 \left(\frac{9}{14}\right) - \frac{5}{14}
+    \log_2 \left(\frac{5}{14}\right) = 0.940$.
+    \begin{description}
+    \item[Age:]
+      \begin{description}
+      \item[youth:] We have 3 no and 2 yes, hence $I(2/5, 3/5) = -\frac{2}{5} \log_2 \left(\frac{2}{5}\right) -
+        \frac{3}{5} \log_2 \left(\frac{3}{5}\right) = 0.971$ bits.
+      \item[Middle-aged:] We have 4 yes, hence $I(1, 0) = 0$ bits.
+      \item[Senior:] We have 3 yes and 2 no, hence $I(3/5, 2/5) = 0.971$ bits.
+      \end{description}
+      With these values, we can compute the information that ``Age'' gives us and the information gain. We
+      have $\mathrm{Info}(Age) = \frac{5}{14} \cdot 0.971 + \frac{4}{14} \cdot 0 + \frac{5}{14} \cdot 0.971 =
+      0.693$ bits. Hence
+      \[\mathrm{gain}(Age) = 0.940 - 0.693 = 0.247.\]
+    \end{description}
+    Applying the exact same method to the attributes ``Income'', ``Student'' and ``Credit rating'', we obtain 
+    \[\mathrm{gain}(Income) = 0.015\]
+    \[\mathrm{gain}(Student) = 0.359\]
+    \[\mathrm{gain}(Credit\ rating) = 0.048.\]
+    Hence the attribute Student gives us the most information, so it will be the first node of our decision
+    tree.
+
+    We need to compute the information gain of ``Age'', ``Income'' and ``Credit rating'' given that
+    Student=yes on the one hand, and Student=no on the other hand. The new initial information when Student=yes is $I(8/9, 1/9)
+    = 0.503$ bits. We have
+    \[\mathrm{gain}(Age) = 0.048\]
+    \[\mathrm{gain}(Income) = 0.048\]
+    \[\mathrm{gain}(Credit\ rating) = 0.197.\]
+    Hence the second node of the decision tree will be given by the Credit rating. We keep on computing the
+    information gain with the same method when Student=yes and Credit rating=excellent, because now we know
+    that if the person is a student and has a good credit rating, he will buy the computer.
+
+    We need to apply the same strategy when Student=no. In the end we computed the following decision tree:
+    \begin{center}
+      \begin{tikzpicture}
+        \node[draw, rectangle] (S) at (0,0) {Student};
+        \node[draw, rectangle] (C) at (4,2) {Credit rating};
+        \node[draw, rectangle] (A1) at (8, 4) {Age};
+        \node[draw, rectangle] (A2) at (4, -2) {Age};
+        \node (Y1) at (8, 2) {Yes};
+        \node (N1) at (12, 5) {No};
+        \node (Y2) at (12, 4) {Yes};
+        \node (Y3) at (12, 3) {Yes};
+        \node (N2) at (8, -1) {No};
+        \node (Y4) at (8, -2) {Yes};
+        \node (N3) at (8, -3) {No};
+        \draw[->, >=latex] (S.north east) to node[midway, above left]{Yes} (C);
+        \draw[->, >=latex] (S.south east) to node[midway, below left]{No} (A2);
+        \draw[->, >=latex] (C.north east) to node[midway, above left]{Excellent} (A1);
+        \draw[->, >=latex] (C) to node[midway, above]{Good} (Y1);
+        \draw[->, >=latex] (A1.north east) to node[midway, above left]{Senior} (N1);
+        \draw[->, >=latex] (A1.east) to node[midway, above, scale=0.8]{Middle-aged} (Y2);
+        \draw[->, >=latex] (A1.south east) to node[midway, below left]{Youth} (Y3);
+        \draw[->, >=latex] (A2.north east) to node[midway, above left]{Senior} (N2);
+        \draw[->, >=latex] (A2.east) to node[midway, above, scale=0.8]{Middle-aged} (Y4);
+        \draw[->, >=latex] (A2.south east) to node[midway, below left]{Youth} (N3);
+      \end{tikzpicture}
+    \end{center}
+    We conclude that, as Edward is a student and has a good credit rating, he would by the PC.
+
+    From the file \texttt{ML\_hayezl\_computerRelation.arff} we computed the decision tree in WEKA with ID3 and
+    we obtained the same decision tree (result is saved in the file
+    \texttt{ML\_hayezl\_computerRelationResults.txt}). Using the prediction with WEKA, we also obtained that
+    Edward will buy the PC.
+  \end{sol}
 
 
 
