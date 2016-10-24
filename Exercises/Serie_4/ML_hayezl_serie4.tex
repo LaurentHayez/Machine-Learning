@@ -1,0 +1,241 @@
+\documentclass[fontsize=12pt, usenames, dvipsnames, headinclude, headsepline, footinclude, footsepline]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx, wrapfig}
+\usepackage{lmodern}
+\usepackage{color, colortbl}
+\usepackage{xcolor}
+\usepackage{amsmath, amssymb, mathrsfs, amsthm, thmtools, MnSymbol}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{pgf, pgfplots, tikz, pst-solides3d}
+\usepackage{scrlayer-scrpage}  % header and footer for KOMA-Script
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{listings}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage{verbatim, listings}
+\usepackage{multirow}
+\usepackage[english]{babel}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\bw}{\bigwedge}
+\newcommand{\Fa}{\F(A)} 
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\emph}{\textbf}
+\newcommand{\im}{\mathrm{im}}
+
+
+\synctex=1
+
+
+%%%%%%%%	Définitions des environnements de théorèmes	%%%%%%%%
+%----- ENVIRONNEMENT POUR LES EXERCICES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont\itshape
+]{defstyle}
+
+\declaretheorem[style=defstyle, title=Exercise]{exo}
+%________________________________________________________
+
+
+
+%----- ENVIRONNEMENT POUR LES PREUVES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont, 
+    mdframed={
+      leftmargin=15,
+      rightmargin=15,
+      hidealllines=true,
+      font=\small
+   }
+]{preuvestyle}
+
+\declaretheorem[style=preuvestyle, numbered = no, title=Solution, qed=\qedsymbol]{sol}
+%________________________________________________________
+
+
+\addtokomafont{disposition}{\normalfont\bfseries}
+
+\title{\normalfont{\bfseries{Machine Learning: Homework 4}}}
+\author{Laurent \textsc{Hayez}}
+\date{\today}
+
+\clearpairofpagestyles                 % deletes header/footer
+\pagestyle{scrheadings}           % use following definitions for header/footer
+% definitions/configuration for the header
+\rohead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}
+\rehead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}        % equal page, right position (inner) 
+\lohead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}}        % odd   page, left  position (inner) 
+\lehead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}} % equal page, left (outer) position
+% definitions/configuration for the footer
+\lefoot[Machine Learning: Homework 4]{Machine Learning: Homework 4}
+\lofoot[Machine Learning: Homework 4]{Machine Learning: Homework 4}
+\refoot[page \pagemark]{page \pagemark}
+\rofoot[page \pagemark]{page \pagemark}
+
+
+\begin{document}
+
+
+\renewcommand{\labelitemi}{\textbullet}
+
+
+
+\maketitle
+
+
+
+
+\begin{exo}
+  By default, WEKA takes the class from the last column in the arff file and uses all other columns as
+  attributes. Take the zoo dataset and only use ‘hair’, ‘airborne’, and ‘type’ as attributes to predict the
+  class ‘eggs’ with a C4.5 tree (J48). Visualize the tree.
+\end{exo}
+
+  \begin{sol}
+    Using a J48 pruned tree, WEKA outputs the following tree:
+\begin{verbatim}
+J48 pruned tree
+------------------
+
+hair = false: true (58.0/4.0)
+hair = true
+|   type = mammal: false (39.0/1.0)
+|   type = bird: false (0.0)
+|   type = reptile: false (0.0)
+|   type = fish: false (0.0)
+|   type = amphibian: false (0.0)
+|   type = insect: true (4.0)
+|   type = invertebrate: false (0.0)
+
+Number of Leaves  : 	8
+
+Size of the tree : 	10
+\end{verbatim}
+  \end{sol}
+
+
+\begin{exo}
+  The C4.5 algorithm implemented in WEKA allows us to choose between a pruned and an unpruned tree. Build both
+  trees for the Bank-account dataset (bank.arff), visualize the trees, and compare the results. What is the
+  purpose of using pruning? Which are the two pruning strategies that exist? Explain them briefly with an
+  example.
+\end{exo}
+
+  \begin{sol}
+    The unpruned tree is
+    
+    \lstinputlisting[firstline=20, lastline=116, basicstyle=\tiny]{ML_bankJ48UnprunnedResults.txt}
+
+    and the pruned tree is
+    
+    \lstinputlisting[firstline=20, lastline=56, basicstyle=\tiny]{ML_bankJ48PrunnedResults.txt}
+
+    We see that the unpruned tree is quite huge while the pruned tree is more human readable. There are more
+    errors in the pruned tree, but as some data can be noisy (ex. someone entered income=1000000 instead of
+    income=100000), the pruning can sometimes remove these kind of errors. Thus it is classified as an error
+    by the algorithm, but in fact it can prevent further errors. 
+
+    The two pruning strategies are 
+    \begin{description}
+    \item[Post-pruning:] Suppose we have a decision tree that returns true or false. Suppose we built the
+      whole decision tree and one branch leads to 10 instances that return true, and one instance that returns
+      false. Then we can prune this branch by saying it always lead to true (with one error). For a ``real''
+      example, take the first part of the unprunned tree for the file \texttt{bank.arff}. For the category
+      sex=MALE, we almost exclusively have NO (we have 24 NO with 3 errors and 4 YES). That means the next
+      attributes are not very relevant for the classification. Hence we can prune this branch and say if
+      sex=MALE, return NO leading to 28 NO with 7 errors. The same happens with sex=FEMALE, hence we can also
+      prune this branch, and simply put if car=YES, return NO. Note that this is the result of the pruned tree
+      with the J48 algorithm.
+
+    \item[Pre-pruning:] The pre-pruning is based on a statistical signifiance test (e.g. chi-squared
+      test). Instead of cutting the branches of a tree at the end, they are cut during the building of the
+      tree. One branch stops growing when there is no statistically significant association between an
+      attribute and the class at a particular node, i.e., if an attribute is not relevant for the choice of
+      the output. 
+
+        For example, suppose we are creating the tree for the \texttt{bank.arff} file. We wonder if we can prune the branch
+        car=YES. Suppose we computed that the next attribute for the decision is ``sex'' (with information
+        gain for example). We wish to see it this attribute is significant. Then we can use the chi-squared
+        test for example. We start by computing the following table:
+        \begin{center}
+          \begin{tabular}{l|c|c|c}
+            & class=YES & class=NO & \multicolumn{1}{l}{} \\ \hline
+            sex=MALE   & 7         & 21       & 28                   \\ \hline
+            sex=FEMALE & 8         & 14       & 22                   \\ \hline
+            & 15        & 35       & 50                  
+          \end{tabular}
+        \end{center}
+        Then we compute $\mu_{j, CLASS} = \frac{n_{CLASS} \cdot n_j}{n}$ for $j = 1, 2$ and $CLASS=YES,\ NO$:
+        \[ \mu_{1, YES} = 8.4 \quad \mu_{2, YES} = 6.6 \quad \mu_{1, NO} = 19.6 \quad \mu_{2, NO} = 15.4. \] 
+        \[ \chi^2 = \sum_{i=1}^2 \frac{(n_{i, YES} - \mu_{i, YES})^2}{\mu_{i, YES}} + \frac{(n_{i, NO} -
+            \mu_{i, NO})^2}{\mu_{i, NO}} = 0.7575. \]
+        For this example, we have a degree of freedom of 1, and setting $\alpha = 0.95$ we have a limit value
+        of $3.84$. As $0.7575 < 3.84$, we conclude that the attribute ``sex'' is not significant and that we
+        can cut this branch. \qedhere
+    \end{description}
+  \end{sol}
+
+
+
+\begin{exo}
+  Take the five datasets and use the three classifiers Naïve Bayes, Simple Rule, and C4.5. For each
+  dataset-classifier tuple, retrieve the percentage of instances correctly classified. What are your
+  conclusions (without doing any statistical tests)?
+\end{exo}
+  
+  \begin{sol}
+    The results of the classifiers are in Table \ref{table:1}. The first observation is that on these
+    examples, the J48 pruned tree algorithm gives the best results, except for the zoo dataset. This is due to
+    the fact that the animals are uniquely identified by their names, which can be seen as a subset of the
+    category they are classified in (e.g. wolfs $\subset$ mammals) and the 1rule uses this information for
+    classification. The decision tree is less good on this example because it is pruned. 
+
+    Otherwise there is only the soybean dataset on which the simple rule is not good. Otherwise it is at least
+    as good as Naïve Bayes, promoting the Ockham's razor principle. 
+
+    In conclusion, if one class is clearly identifiable with one attribute, the simple rule is a good choice,
+    but if the classification is based on multiple attributes, a decision tree will be efficient, and a bit
+    more precise than Naïve Bayes.
+  \end{sol}
+
+\begin{table}[]
+\centering
+\caption{Results of different classifiers on different datasets}
+\label{table:1}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+        & Simple rule & Naïve Bayes & Decision tree (J48 pruned) \\ \midrule
+Bank    & 68\%        & 63\%        & 81\%                       \\ \midrule
+Iris    & 96\%        & 96\%        & 98\%                       \\ \midrule
+Soybean & 40.85\%     & 93.7\%      & 96.34\%                    \\ \midrule
+Vote    & 95.6\%      & 90.34\%     & 97.24\%                    \\ \midrule
+Zoo     & 100\%       & 100\%       & 99.01\%                    \\ \bottomrule
+\end{tabular}
+\end{table}
+	
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t 
+%%% End:

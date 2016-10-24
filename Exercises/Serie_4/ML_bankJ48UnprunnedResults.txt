@@ -1,0 +1,148 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -U -M 2
+Relation:     bank
+Instances:    300
+Attributes:   9
+              age
+              sex
+              region
+              income
+              married
+              children
+              car
+              mortgage
+              pep
+Test mode:    evaluate on training data
+
+=== Classifier model (full training set) ===
+
+J48 unpruned tree
+------------------
+
+children = YES
+|   income <= 30099.3
+|   |   car = YES
+|   |   |   sex = MALE
+|   |   |   |   region = INNER_CITY: NO (12.0/1.0)
+|   |   |   |   region = RURAL
+|   |   |   |   |   married = YES
+|   |   |   |   |   |   age <= 27: NO (2.0)
+|   |   |   |   |   |   age > 27: YES (3.0)
+|   |   |   |   |   married = NO: NO (2.0)
+|   |   |   |   region = TOWN: NO (8.0/2.0)
+|   |   |   |   region = SUBURBAN: YES (1.0)
+|   |   |   sex = FEMALE
+|   |   |   |   region = INNER_CITY
+|   |   |   |   |   married = YES: NO (6.0/2.0)
+|   |   |   |   |   married = NO
+|   |   |   |   |   |   income <= 23475.6: YES (2.0)
+|   |   |   |   |   |   income > 23475.6: NO (2.0)
+|   |   |   |   region = RURAL: NO (2.0)
+|   |   |   |   region = TOWN
+|   |   |   |   |   married = YES: NO (3.0/1.0)
+|   |   |   |   |   married = NO: YES (3.0/1.0)
+|   |   |   |   region = SUBURBAN: NO (4.0/1.0)
+|   |   car = NO
+|   |   |   married = YES
+|   |   |   |   region = INNER_CITY
+|   |   |   |   |   income <= 13106.6: NO (3.0)
+|   |   |   |   |   income > 13106.6
+|   |   |   |   |   |   mortgage = YES: YES (7.0/1.0)
+|   |   |   |   |   |   mortgage = NO
+|   |   |   |   |   |   |   income <= 18923: YES (3.0)
+|   |   |   |   |   |   |   income > 18923: NO (4.0/1.0)
+|   |   |   |   region = RURAL: YES (6.0/2.0)
+|   |   |   |   region = TOWN
+|   |   |   |   |   mortgage = YES: NO (5.0/2.0)
+|   |   |   |   |   mortgage = NO
+|   |   |   |   |   |   sex = MALE: YES (2.0/1.0)
+|   |   |   |   |   |   sex = FEMALE
+|   |   |   |   |   |   |   age <= 33: NO (3.0)
+|   |   |   |   |   |   |   age > 33
+|   |   |   |   |   |   |   |   age <= 50: YES (2.0)
+|   |   |   |   |   |   |   |   age > 50: NO (2.0)
+|   |   |   |   region = SUBURBAN: NO (3.0/1.0)
+|   |   |   married = NO
+|   |   |   |   mortgage = YES: NO (8.0/1.0)
+|   |   |   |   mortgage = NO
+|   |   |   |   |   region = INNER_CITY: NO (5.0/1.0)
+|   |   |   |   |   region = RURAL: YES (1.0)
+|   |   |   |   |   region = TOWN: NO (4.0/1.0)
+|   |   |   |   |   region = SUBURBAN: YES (4.0/2.0)
+|   income > 30099.3
+|   |   sex = MALE
+|   |   |   married = YES
+|   |   |   |   region = INNER_CITY
+|   |   |   |   |   car = YES
+|   |   |   |   |   |   income <= 42603.9
+|   |   |   |   |   |   |   age <= 37: YES (2.0)
+|   |   |   |   |   |   |   age > 37: NO (2.0)
+|   |   |   |   |   |   income > 42603.9: YES (3.0)
+|   |   |   |   |   car = NO: YES (5.0/1.0)
+|   |   |   |   region = RURAL: YES (3.0/1.0)
+|   |   |   |   region = TOWN: YES (4.0/1.0)
+|   |   |   |   region = SUBURBAN: YES (2.0)
+|   |   |   married = NO: YES (12.0/1.0)
+|   |   sex = FEMALE: YES (26.0/1.0)
+children = NO
+|   married = YES
+|   |   mortgage = YES
+|   |   |   region = INNER_CITY
+|   |   |   |   income <= 39547.8: YES (12.0/3.0)
+|   |   |   |   income > 39547.8: NO (4.0)
+|   |   |   region = RURAL: NO (3.0/1.0)
+|   |   |   region = TOWN: NO (9.0/2.0)
+|   |   |   region = SUBURBAN: NO (4.0/1.0)
+|   |   mortgage = NO
+|   |   |   car = YES: NO (27.0/2.0)
+|   |   |   car = NO
+|   |   |   |   income <= 28421.7
+|   |   |   |   |   region = INNER_CITY: NO (15.0/4.0)
+|   |   |   |   |   region = RURAL: YES (1.0)
+|   |   |   |   |   region = TOWN: YES (2.0/1.0)
+|   |   |   |   |   region = SUBURBAN: YES (1.0)
+|   |   |   |   income > 28421.7: NO (11.0)
+|   married = NO
+|   |   mortgage = YES
+|   |   |   age <= 39
+|   |   |   |   age <= 28: NO (4.0)
+|   |   |   |   age > 28: YES (5.0/1.0)
+|   |   |   age > 39: NO (11.0)
+|   |   mortgage = NO: YES (20.0/1.0)
+
+Number of Leaves  : 	53
+
+Size of the tree : 	91
+
+
+Time taken to build model: 0.03 seconds
+
+=== Evaluation on training set ===
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Summary ===
+
+Correctly Classified Instances         258               86      %
+Incorrectly Classified Instances        42               14      %
+Kappa statistic                          0.7173
+Mean absolute error                      0.2061
+Root mean squared error                  0.321 
+Relative absolute error                 41.4874 %
+Root relative squared error             64.4121 %
+Total Number of Instances              300     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.826    0.111    0.864      0.826    0.844      0.718    0.930     0.915     YES
+                 0.889    0.174    0.857      0.889    0.873      0.718    0.930     0.932     NO
+Weighted Avg.    0.860    0.145    0.860      0.860    0.860      0.718    0.930     0.924     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 114  24 |   a = YES
+  18 144 |   b = NO
+
