@@ -1,0 +1,10 @@
+S01	Yes	No	No	No	45	Male
+S02	Yes	Yes	Yes	Yes	40	Female
+S03	No	No	No	No	42	Male
+S04	Yes	Yes	Yes	Yes	30	Male
+S05	Yes	Yes	Yes	No	38	Female
+S06	No	No	No	No	55	Female
+S07	Yes	Yes	Yes	Yes	35	Male
+S08	No	No	No	No	27	Male
+S09	Yes	No	No	No	43	Male
+S10	Yes	Yes	Yes	No	41	Female
