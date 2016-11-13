@@ -1,0 +1,23 @@
+% Machine Learning Homework 6 %
+% manual 5-fold cross validation
+% training set 4
+
+@RELATION commercials
+
+@ATTRIBUTE magazine {Yes, No}
+@ATTRIBUTE paper {Yes, No}
+@ATTRIBUTE internet {Yes, No}
+@ATTRIBUTE tv {Yes, No}
+@ATTRIBUTE age NUMERIC
+@ATTRIBUTE sex {Male, Female}
+
+@DATA
+
+Yes,	No,		No,		No,		45,		Male
+Yes,	Yes,	Yes,	Yes,	40,		Female
+No,		No,		No,		No,		42,		Male
+Yes,	Yes,	Yes,	Yes,	30,		Male
+Yes,	Yes,	Yes,	No,		38,		Female
+No,		No,		No,		No,		55,		Female
+Yes,	No,		No,		No,		43,		Male
+Yes,	Yes,	Yes,	No,		41,		Female

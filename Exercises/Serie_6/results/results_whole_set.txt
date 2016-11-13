@@ -1,0 +1,70 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 2
+Relation:     commercials
+Instances:    10
+Attributes:   6
+              magazine
+              paper
+              internet
+              tv
+              age
+              sex
+Test mode:    5-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+paper = Yes
+|   age <= 35: Male (2.0)
+|   age > 35: Female (3.0)
+paper = No: Male (5.0/1.0)
+
+Number of Leaves  : 	3
+
+Size of the tree : 	5
+
+
+Time taken to build model: 0 seconds
+
+=== Predictions on test data ===
+
+    inst#     actual  predicted error prediction
+        1     1:Male   2:Female   +   1 
+        2     1:Male   2:Female   +   1 
+        1     1:Male     1:Male       0.75 
+        2   2:Female   2:Female       1 
+        1     1:Male     1:Male       0.667 
+        2   2:Female   2:Female       1 
+        1     1:Male     1:Male       0.75 
+        2   2:Female     1:Male   +   1 
+        1     1:Male     1:Male       1 
+        2   2:Female     1:Male   +   1 
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances           6               60      %
+Incorrectly Classified Instances         4               40      %
+Kappa statistic                          0.1667
+Mean absolute error                      0.4833
+Root mean squared error                  0.6509
+Relative absolute error                 96.6667 %
+Root relative squared error            128.1368 %
+Total Number of Instances               10     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.667    0.500    0.667      0.667    0.667      0.167    0.458     0.567     Male
+                 0.500    0.333    0.500      0.500    0.500      0.167    0.458     0.450     Female
+Weighted Avg.    0.600    0.433    0.600      0.600    0.600      0.167    0.458     0.520     
+
+=== Confusion Matrix ===
+
+ a b   <-- classified as
+ 4 2 | a = Male
+ 2 2 | b = Female
+
