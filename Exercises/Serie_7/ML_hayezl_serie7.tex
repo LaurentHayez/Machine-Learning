@@ -1,0 +1,237 @@
+\documentclass[fontsize=12pt, usenames, dvipsnames, headinclude, headsepline, footinclude, footsepline]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx, wrapfig}
+\usepackage{lmodern}
+\usepackage{color, colortbl}
+\usepackage{xcolor}
+\usepackage{amsmath, amssymb, mathrsfs, amsthm, thmtools, MnSymbol}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{pgf, pgfplots, tikz, pst-solides3d}
+\usepackage{scrlayer-scrpage}  % header and footer for KOMA-Script
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{listings}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage{verbatim, listings}
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage[english]{babel}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\bw}{\bigwedge}
+\newcommand{\Fa}{\F(A)} 
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\emph}{\textbf}
+\newcommand{\im}{\mathrm{im}}
+
+
+\synctex=1
+
+
+%%%%%%%%	Définitions des environnements de théorèmes	%%%%%%%%
+%----- ENVIRONNEMENT POUR LES EXERCICES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont\itshape
+]{defstyle}
+
+\declaretheorem[style=defstyle, title=Exercise]{exo}
+%________________________________________________________
+
+
+
+%----- ENVIRONNEMENT POUR LES PREUVES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont, 
+    mdframed={
+      leftmargin=15,
+      rightmargin=15,
+      hidealllines=true,
+      font=\small
+   }
+]{preuvestyle}
+
+\declaretheorem[style=preuvestyle, numbered = no, title=Solution, qed=\qedsymbol]{sol}
+%________________________________________________________
+
+
+\addtokomafont{disposition}{\normalfont\bfseries}
+
+\title{\normalfont{\bfseries{Machine Learning: Homework 7}}}
+\author{Laurent \textsc{Hayez}}
+\date{\today}
+
+\clearpairofpagestyles                 % deletes header/footer
+\pagestyle{scrheadings}           % use following definitions for header/footer
+% definitions/configuration for the header
+\rohead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}
+\rehead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}        % equal page, right position (inner) 
+\lohead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}}        % odd   page, left  position (inner) 
+\lehead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}} % equal page, left (outer) position
+% definitions/configuration for the footer
+\lefoot[Machine Learning: Homework 7]{Machine Learning: Homework 7}
+\lofoot[Machine Learning: Homework 7]{Machine Learning: Homework 7}
+\refoot[page \pagemark]{page \pagemark}
+\rofoot[page \pagemark]{page \pagemark}
+
+
+\begin{document}
+
+
+\renewcommand{\labelitemi}{\textbullet}
+
+
+
+\maketitle
+
+
+
+
+\begin{exo}
+  Build the co-occurrence matrix for the observations.
+
+Calculate support, confidence, completeness, lift, and leverage for the following rules.
+\begin{itemize}
+\item Apple $\to$ Donut 
+\item Apple $\to$ Onion 
+\item Sugar $\to$ Yoghurt 
+\item Donut $\to$ Onion 
+\item Donut $\to$ Raspberry 
+\item Onion $\to$ Raspberry
+\end{itemize}
+
+Explain these measures (why they are useful, what ranges of numbers they can return, what the values mean).
+
+Use the Apriori algorithm to find frequent item sets. We are only interested in item sets having a support value of at least 50\%.
+
+\end{exo}
+
+  \begin{sol}
+    The co-occurrence matrix is computed in \texttt{ML\_hayezl\_homework7.xlsx}, and is
+    given in Table \ref{table:co-occ}. 
+
+    The support, confidence, completeness, lift and leverage were computed with the following formulas 
+    \[ \mathrm{support} = \frac{N_{\mathrm{both}}}{N_{\mathrm{total}}},\] 
+    \[ \mathrm{confidence} = \frac{N_{\mathrm{both}}}{N_{\mathrm{left}}}, \] 
+    \[ \mathrm{completeness} = \frac{N_{\mathrm{both}}}{N_{\mathrm{right}}}, \] 
+    \[ \mathrm{lift}(L \to R) = \frac{\mathrm{support}(L \cup R)}{\mathrm{support}(L) \cdot
+        \mathrm{support}(R)},  \] 
+    \[ \mathrm{leverage}(L \to R) =  \mathrm{support}(L \cup R) - (\mathrm{support}(L) \cdot
+      \mathrm{support}(R)).\]
+    The results for the different rules are displayed in Table \ref{table:1}.
+
+    \begin{itemize}
+    \item The \emph{support} of a set $I$ measures the proportion of baskets in which $I$ appears. Hence
+      $\mathrm{support}(I) \in [0, 1]$ (or $]0, 1]$ to be more precise, because considering items that never
+      appear is not interesting). This measure is useful to know if $I$ appears often or not.
+
+    \item The \emph{confidence} of a rule measures how reliable a rule is, or in other words, if the rule is
+      $L \to R$, it measures the proportion of the appearance of $R$ when $L$ appears. This measure takes
+      values in $]0,1]$. It is useful to know if some items are correlated, or often bought together. 
+
+    \item The \emph{completeness} of a rule measures the proportion of times $L$ and $R$ happen with respect
+      to $R$. This measure takes values in $]0,1]$. If the measure is close to $1$, it means that $R$ is very
+      correlated with $L$, as it means that $R$ appears almost always when $L$ appears. It is useful to
+      determine if an item is bought when another item is bought.
+
+    \item The \emph{lift} of a rule $L \to R$ measure how the appearance of two items at the same time differ
+      from how they would appear if $L$ and $R$ were statistically independent. If $L$ and $R$ are
+      independent, the expectation of $L$ and $R$ appearing together is $|L| \cdot \mathrm{support}(R)$, and
+      we need to compare this to the actual number of time they appear together, i.e., $|L \cup R|$. This
+      measure takes values in $\R_{>0}$, but the interesting values are when $\mathrm{lift}(L \to R) > 1$
+      because this tells us that $L$ and $R$ are correlated, in the sense that when $L$ is bought, $R$ is also
+      bought. 
+
+    \item The \emph{leverage} of a rule $L \to R$ compares the support of $L \cup R$ and $L$, $R$. It gives a
+      measure that tells us whether the elements are associated ``by chance''. This measure takes values in
+      $R_{>0}$. It measures the proportion of times items are bought together more than if we had chosen them
+      randomly. 
+    \end{itemize}
+
+    We start by creating
+    $L_1 = \{\{\text{Apple}\}, \{\text{Donut}\}, \{\text{Ice-cream}\}, \{\text{Onion}\},
+    \{\text{Raspberry}\}\}$ which consists of the items that have a support at least 50\%. From this set we
+    create $C_2$ which consist of the 10 possible unordered pairs of items. We keep the pairs that have a
+    support greater than 50\% and we create 
+    \begin{align*}L_2 = \{&\{\text{Apple, Donut}\}, \{\text{Apple, Ice-cream}\}, \{\text{Apple, Onion}\},\\ & \{\text{Apple,
+      Raspberry}\}, \{\text{Donut, Onion}\}, \{\text{Onion, Raspberry}\}\}.\end{align*}
+    From $L_2$ we can form $C_3 = \{\{\text{A, D, I}\}, \{\text{A, D, O}\}, \{\text{A, D, R}\}, \{\text{D, O,
+      R}\}\}$ where $A = $ Apple, $D = $ Donut, $I = $ Ice-cream, $O = $ Onion, $R = $ Raspberry. The only set
+    with support greater than 50\% is $\{\text{Apple, Donut, Onions}\} =: L_3$, and we can't form any other set.
+  \end{sol}
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[h]
+\centering
+\caption{Co-occurrence matrix for the observation}
+\label{table:co-occ}
+{ \footnotesize 
+\begin{tabular}{@{}c|ccccccccc@{}}
+\toprule
+Co-occurrences & Apple & Donut & Ice-cream & Mango & Onion & Raspberry & Sugar & Tomato & Yoghurt \\ \midrule
+Apple          & 6     & 4     & 3         & 2     & 5     & 4         & 2     & 1      & 2       \\
+Donut          & 4     & 4     & 2         & 0     & 3     & 2         & 2     & 1      & 1       \\
+Ice-cream      & 3     & 2     & 3         & 1     & 2     & 2         & 1     & 0      & 1       \\
+Mango          & 2     & 0     & 1         & 2     & 2     & 2         & 0     & 0      & 1       \\
+Onion          & 5     & 3     & 2         & 2     & 5     & 4         & 1     & 1      & 1       \\
+Raspberry      & 4     & 2     & 2         & 2     & 4     & 4         & 1     & 0      & 1       \\
+Sugar          & 2     & 2     & 1         & 0     & 1     & 1         & 2     & 0      & 1       \\
+Tomato         & 1     & 1     & 0         & 0     & 1     & 0         & 0     & 1      & 0       \\
+Yoghurt        & 2     & 1     & 1         & 1     & 1     & 1         & 1     & 0      & 2       \\ \bottomrule
+\end{tabular}
+}
+\end{table}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[h]
+\centering
+\caption{Support, confidence, completeness, lift and leverage of the different rules}
+\label{table:1}
+{ \footnotesize
+\begin{tabular}{@{}c|ccc@{}}
+\toprule
+Rules        & Apple $\to$ Donut & Apple $\to$ Onion     & Sugar $\to$ Yoghurt   \\ \midrule
+Support      & 0.666666667               & 0.833333333                   & 0.166666667                   \\
+Confidence   & 0.666666667               & 0.833333333                   & 0.5                           \\
+Completeness & 1                         & 1                             & 0.5                           \\
+Lift         & 1                         & 1                             & 1.5                           \\
+Leverage     & 0                         & 0                             & 0.055555556                   \\ \toprule
+Rules        & Donut $\to$ Onion & Donut $\to$ Raspberry & Onion $\to$ Raspberry \\ \midrule
+Support      & 0.5                       & 0.333333333                   & 0.666666667                   \\
+Confidence   & 0.75                      & 0.5                           & 0.8                           \\
+Completeness & 0.6                       & 0.5                           & 1                             \\
+Lift         & 0.9                       & 0.75                          & 1.2                           \\
+Leverage     & -0.055555556              & -0.111111111                  & 0.111111111                   \\ \bottomrule
+\end{tabular}
+}
+\end{table}
+
+	
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t 
+%%% End:
