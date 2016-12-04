@@ -1,0 +1,56 @@
+=== Run information ===
+
+Scheme:       weka.clusterers.HierarchicalClusterer -N 1 -L AVERAGE -P -B -A "weka.core.ManhattanDistance -R first-last"
+Relation:     Canton
+Instances:    26
+Attributes:   32
+              CantonName
+              Volksinitiative "Für den geordneten Ausstieg aus der Atomenergie"
+              Bundesgesetz über den Nachrichtendienst (Nachrichtendienstgesetz und NDG)
+              Volksinitiative "AHVplus: für eine starke AHV"
+              Volksinitiative "Für eine nachhaltige und ressourceneffiziente Wirtschaft (Grüne Wirtschaft)"
+              Asylgesetz
+              Fortpflanzungsmedizingesetz
+              Initiative "Für eine faire Verkehrsfinanzierung"
+              Initiative "Für ein bedingungsloses Grundeinkommen"
+              Initiative "Pro Service public"
+              Sanierung Gotthard-Strassentunnel
+              Initiative gegen die Spekulation mit Nahrungsmitteln
+              Durchsetzungsinitiative
+              Initiative gegen die Heiratsstrafe
+              Bundesgesetz über Radio und Fernsehen
+              "Volksinitiative ""Millionen-Erbschaften besteuern für unsere AHV (Erbschaftssteuerreform)"""
+              "Volksinitiative ""Stipendieninitiative"""
+              Bundesbeschluss über die Änderung der Verfassungsbestimmung zur Fortpflanzungsmedizin und Gentechnologie im Humanbereich
+              "Volksinitiative ""Energie- statt Mehrwertsteuer"""
+              "Volksinitiative ""Familien stärken! Steuerfreie Kinder- und Ausbildungszulagen"""
+              "Volksinitiative ""Rettet unser Schweizer Gold (Gold-Initiative)"""
+              "Volksinitiative ""Stopp der Überbevölkerung - zur Sicherung der natürlichen Lebensgrundlagen"""
+              "Volksinitiative ""Schluss mit den Steuerprivilegien für Millionäre (Abschaffung der Pauschalbesteuerung)"""
+              "Volksinitiative ""Für eine öffentliche Krankenkasse"""
+              "Volksinitiative ""Schluss mit der MwSt-Diskriminierung des Gastgewerbes!"""
+              Bundesgesetz über den Fonds zur Beschaffung des Kampfflugzeugs Gripen
+              "Volksinitiative ""Für den Schutz fairer Löhne (Mindestlohn-Initiative)"""
+              "Volksinitiative ""Pädophile sollen nicht mehr mit Kindern arbeiten dürfen"""
+              "Bundesbeschluss über die medizinische Grundversorgung (direkter Gegenentwurf zur zurückgezogenen Volksinitiative ""Ja zur Hausarztmedizin"")"
+              "Volksinitiative ""Gegen Masseneinwanderung"""
+              "Volksinitiative ""Abtreibungsfinanzierung ist Privatsache - Entlastung der Krankenversicherung durch Streichung der Kosten des Schwangerschaftsabbruchs aus der obligatorischen Grundversicherung"""
+              "Bundesbeschluss über die Finanzierung und den Ausbau der Eisenbahninfrastruktur (direkter Gegenentwurf zur zurückgezogenen Volksinitiative ""Für den öffentlichen Verkehr"")"
+Test mode:    evaluate on training data
+
+
+=== Clustering model (full training set) ===
+
+Cluster 0
+(((((((Zurich:3.44604,(Bern:2.77284,BaselLnd:2.77284):3.44604):5.37447,Fribourg:5.37447):6.51679,((((Luzern:3.46153,Graubunden:3.46153):4.44484,Zug:4.44484):5.27153,(Uri:4.59052,(((Glarus:2.91214,(StGallen:1.50371,Thurgau:1.50371):2.91214):3.28224,(Solothurn:2.41573,Aargau:2.41573):3.28224):4.07185,AppenzellAusserrhoden:4.07185):4.59052):5.27153):6.25758,Schaffhausen:6.25758):6.51679):6.86439,Wallis:6.86439):8.39132,(Schwyz:3.70567,((Obwalden:2.4103,Nidwalden:2.4103):3.48255,AppenzellInnerrhoden:3.48255):3.70567):8.39132):9.75309,Ticino:9.75309):13.67907,(BaselStd:8.854,((Vaud:5.46795,Geneve:5.46795):7.37037,(Neuchatel:4.33547,Jura:4.33547):7.37037):8.854):13.67907)
+
+
+
+Time taken to build model (full training data) : 0 seconds
+
+=== Model and evaluation on training set ===
+
+Clustered Instances
+
+0      26 (100%)
+

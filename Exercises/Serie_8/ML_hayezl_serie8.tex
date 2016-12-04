@@ -1,0 +1,279 @@
+\documentclass[fontsize=12pt, usenames, dvipsnames, headinclude, headsepline, footinclude, footsepline]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx, wrapfig}
+\usepackage{lmodern}
+\usepackage{color, colortbl}
+\usepackage{xcolor}
+\usepackage{amsmath, amssymb, mathrsfs, amsthm, thmtools, MnSymbol}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{pgf, pgfplots, tikz, pst-solides3d}
+\usepackage{scrlayer-scrpage}  % header and footer for KOMA-Script
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{listings}
+\usepackage[inline]{enumitem}
+\usepackage{booktabs}
+\usepackage{verbatim, listings}
+\usepackage{multirow}
+\usepackage{pdflscape}
+\usepackage[english]{babel}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\bw}{\bigwedge}
+\newcommand{\Fa}{\F(A)} 
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\emph}{\textbf}
+\newcommand{\im}{\mathrm{im}}
+
+
+\synctex=1
+
+
+%%%%%%%%	Définitions des environnements de théorèmes	%%%%%%%%
+%----- ENVIRONNEMENT POUR LES EXERCICES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont\itshape
+]{defstyle}
+
+\declaretheorem[style=defstyle, title=Exercise]{exo}
+%________________________________________________________
+
+
+
+%----- ENVIRONNEMENT POUR LES PREUVES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont, 
+    mdframed={
+      leftmargin=15,
+      rightmargin=15,
+      hidealllines=true,
+      font=\small
+   }
+]{preuvestyle}
+
+\declaretheorem[style=preuvestyle, numbered = no, title=Solution, qed=\qedsymbol]{sol}
+%________________________________________________________
+
+
+\addtokomafont{disposition}{\normalfont\bfseries}
+
+\title{\normalfont{\bfseries{Machine Learning: Homework 8}}}
+\author{Laurent \textsc{Hayez}}
+\date{\today}
+
+\clearpairofpagestyles                 % deletes header/footer
+\pagestyle{scrheadings}           % use following definitions for header/footer
+% definitions/configuration for the header
+\rohead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}
+\rehead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}        % equal page, right position (inner) 
+\lohead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}}        % odd   page, left  position (inner) 
+\lehead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}} % equal page, left (outer) position
+% definitions/configuration for the footer
+\lefoot[Machine Learning: Homework 8]{Machine Learning: Homework 8}
+\lofoot[Machine Learning: Homework 8]{Machine Learning: Homework 8}
+\refoot[page \pagemark]{page \pagemark}
+\rofoot[page \pagemark]{page \pagemark}
+
+
+\begin{document}
+
+
+\renewcommand{\labelitemi}{\textbullet}
+
+
+
+\maketitle
+
+
+
+
+\begin{exo}
+  Imagine running a medical test for the fictional disease Sthgiw in Llefretniw (population = 1,000), where
+  40\% are infected. The test has a false positive rate (FP/C-) of 5\% and no false negative rate
+  (FN/C+). Create the confusion matrix. What’s the positive predictive value (probability that it correctly
+  indicates an infection if a person receives a positive test)?  
+
+  Now consider the same test applied in Nurrevir (population = 1,000), but where only 2\% are infected. Create
+  the confusion matrix and recalculate the probability of actually being infected after one is told that one
+  is infected using the same medical test.  
+
+  Suddenly we have the new disease Sreklaw. Only one in a million people gets this disease. We develop a new
+  test that gives us 99\% of the time the correct result (99 percent of the time, it gives true if the subject
+  is infected, and false if the subject is healthy). We give the test to everybody in Soretsew (population =
+  1,000,000). How happy are we with our 99\% accurate test?
+\end{exo}
+
+  \begin{sol}
+    According to the confusion matrix shown in Table \ref{Table:conf-matrix-ex1}, we deduce that the
+    proportion of tests predicted negative which actually are negative is $0.57$. Indeed, $60$\% of the
+    individuals actually are negative (don't have the disease), and $5\%$ of them are tested positive. Hence
+    $3$\% of the individuals are false positive, and $57$\% are true negative. Applying the same reasoning for
+    the individuals who have the disease, we obtain that $40$\% of the individuals are true positive and $0$\%
+    are false negative. 
+
+    The positive predictive value is given by $\frac{TP}{TP + FP} = \frac{400}{400 + 30} \simeq 0.93$.
+
+    Doing the same calculation if $2$\% of the population is infected, we obtain the confusion matrix shown in
+    Table \ref{Table:conf-matrix-ex1-2}. That means that the positive predictive value is $\sim 29$\%.
+
+    If we do the same calculations as before for the new disease, we obtain the confusion matrix shown in
+    Table \ref{Table:conf-matrix-ex1-3}. The positive predictive value is $\sim 9.9 \cdot 10^{-5}$, or in
+    other words, the test is completely inaccurate to detect the disease. However the negative predictive
+    value is $0.9999999899$, i.e., very accurate to detect that a healthy individual is not affected by the
+    disease. 
+  \end{sol}
+
+
+
+\begin{table}[h]
+\centering
+\caption{Confusion matrix for Exercise 1 \-- part 1}
+\label{Table:conf-matrix-ex1}
+\begin{tabular}{cc|c|c|c}
+                                             &          & \multicolumn{2}{c|}{Tested} &     \\ \cline{3-4}
+                                             &          & Positive     & Negative     &     \\ \hline
+\multicolumn{1}{c|}{\multirow{2}{*}{Actual}} & Positive & 400          & 0            & 400 \\ \cline{2-5} 
+\multicolumn{1}{c|}{}                        & Negative & 30           & 570          & 600 \\ \hline
+                                             &          & 430          & 570          & 1000  
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[h]
+\centering
+\caption{Confusion matrix for Exercise 1 \-- part 2}
+\label{Table:conf-matrix-ex1-2}
+\begin{tabular}{cc|c|c|c}
+                                             &          & \multicolumn{2}{c|}{Tested} &     \\ \cline{3-4}
+                                             &          & Positive     & Negative     &     \\ \hline
+\multicolumn{1}{c|}{\multirow{2}{*}{Actual}} & Positive & 20           & 0            & 20 \\ \cline{2-5} 
+\multicolumn{1}{c|}{}                        & Negative & 49           & 931          & 980 \\ \hline
+                                             &          & 69           & 931          & 1000  
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Confusion matrix for Exercise 1 \-- part 3}
+\label{Table:conf-matrix-ex1-3}
+\begin{tabular}{cc|c|c|c}
+                                             &          & \multicolumn{2}{c|}{Tested} &     \\ \cline{3-4}
+                                             &          & Positive     & Negative     &     \\ \hline
+\multicolumn{1}{c|}{\multirow{2}{*}{Actual}} & Positive & 0.99         & 0.01         & 1 \\ \cline{2-5} 
+\multicolumn{1}{c|}{}                        & Negative & 9'999.99     & 989'999.01   & 999'999 \\ \hline
+                                             &          & 10'000.98    & 989'999.02   & 1'000'000  
+\end{tabular}
+\end{table}
+
+
+\begin{exo}
+  Create the ordered rule list. With that, form a single rule and an unordered rule list. 
+
+  Classify the following sample according to your rules:
+\end{exo}
+
+  \begin{sol}
+    By observing the table, we see that the rule covering the largest number of information is 
+    \[ \text{R1: IF TV = Yes, THEN Male.} \]
+    For the next one, we see that if the attributes Paper and Internet are Yes, or the attribute Magazine is
+    No we always have a woman. The attributed that cover the largest set is Paper. Hence the second rule is 
+    \[ \text{R2: IF Paper = Yes, THEN Female.} \]
+    Then we only have three samples left. The third rule is 
+    \[ \text{R3: IF Magazine = Yes, THEN Male.} \]
+    The last observation is a woman, hence we obtain 
+    \[ \text{R4: ELSE Female.} \]
+    Making this as a single rule, we obtain
+\begin{verbatim}
+If (TV == Yes):
+    Male
+Else if (Paper == Yes):
+    Female
+Else if (Magazine == Yes):
+    Male
+Else:
+    Female
+\end{verbatim}
+    We can also create an unordered rule list:
+\begin{verbatim}
+R1 : If (TV == Yes) => Male
+R2': If (TV == No && Paper == Yes) => Female
+R3': If (TV == No && Paper == No && Magazine == Yes) => Male
+R4': If (TV == No && Paper == No && Magazine == No) => Female
+\end{verbatim}
+
+    The new sample would be classified according $R3'$, hence it would be classified as a male. Note that this sample is the same as
+    sample 09.
+  \end{sol}
+
+
+
+\begin{exo}
+  Match up the unordered English statements with their associated probability notations and write the
+  probabilities (calculations with Bayes' Theorem and normalization might be needed). If there is no English
+  statement matching a probability, please write one.
+
+  We know that 0.8\% of the people have cancer. If cancer is present, the test returns a correct positive
+  result 98\% of the time. It returns a correct negative result 97\% of the time if the cancer is not present.
+\end{exo}
+
+
+  \begin{sol}
+    Let's draw a probability tree to help.
+    \begin{center}
+      \begin{tikzpicture}
+        \node (C) at (4, 2) {\phantom{$\neg$}Cancer};
+        \node (NC) at (4, -2) {$\neg$ Cancer};
+        \node (TP) at (8, 3) {Positive};
+        \node (FN) at (8, 1) {Negative};
+        \node (FP) at (8, -1) {Positive};
+        \node (TN) at (8, -3) {Negative};
+        \draw (0,0) -- (C.west) node[midway, above left]{$0.008$};
+        \draw (0,0) -- (NC.west) node[midway, below left]{$0.992$};
+        \draw (C.east) -- (TP.west) node[midway, above left]{$0.98$} (C.east) -- (FN.west) node[midway, below left]{$0.02$};
+        \draw (NC.east) -- (FP.west) node[midway, above left]{$0.03$} (NC.east) -- (TN.west) node[midway, below left]{$0.97$};
+      \end{tikzpicture}
+    \end{center}
+
+  
+  Let $A$ be the event ``individual has cancer'' and let $B$ be the event ``the test is positive''. 
+  \[ \P(A) = 0.008 \] 
+  \[ \P( \neg A) = 0.0992 \] 
+  \[ \P( A \mid B) = \frac{0.008 \cdot 0.98}{0.008 \cdot 0.98 + 0.992 \cdot 0.03} = \frac{49}{235} \simeq
+    0.21\] 
+  \[ \P(A \mid \neg B) = \frac{0.008 \cdot 0.02}{0.008 \cdot 0.02 + 0.992 \cdot 0.97} = \frac{1}{6015} \simeq
+    1.66 \cdot 10^{-4}. \]  
+  \[ \P(\neg A \mid B) = \frac{0.992 \cdot 0.03}{0.992 \cdot 0.03 + 0.008 \cdot 0.98} = \frac{186}{235}
+    \simeq 0.79 \] 
+  \[ \P(\neg A \mid \neg B) = 1 - \P(A \mid \neg B) \simeq 0.99 \] 
+  \[ \P(B \mid A) = 0.98 \] 
+  \[ \P(\neg B \mid A) = 0.02 \] 
+  \[ \P(B \mid \neg A) = 0.03 \] 
+  \[ \P(\neg B \mid \neg A) = 0.97. \qedhere \]
+    \end{sol}
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t 
+%%% End:
